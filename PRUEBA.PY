@@ -24,10 +24,11 @@ def buscar_pokemon():
         print("Habilidades:", ", ".join(habilidad))
         print("Habilidades ocultas:", ", ".join(habilidad_oc))
         print("Tipos:", ", ".join(types))
+        buscar_pokemon()
     else:
         print(f"No se encontró ningún Pokémon con el nombre o número '{nombre_pokemon}'.")
+        buscar_pokemon()
 
-if __name__ == "__main__":
-    buscar_pokemon()
+buscar_pokemon()
 
 
