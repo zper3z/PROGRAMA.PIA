@@ -22,14 +22,22 @@ def opcion_1():
   print("1. AGREGAR POKEMON")
   print("2. ELIMINAR POKEMON")
   print("3. VOLVER")
-  opcion = input("Escribe el nombre del pokemon")
 
 def opcion_2():
-  print("Opción 2")
+  print("---LISTAS---")
+  contador = 1
+  for i in len(database["listas"]:
+    nombre = str(database["listas][i])
+    print(f"{n}---{nombre}---")
+    n += 1
+  print(f"{n}REGRESAR")
 
 def opcion_3():
+  poke = input("Ingrese un pokemon para ver la grafica de las estaditiscas del pokemon base")
+  
+def opcion_4():
   return 0
-
+  
 def lista_pokemon(pokemon, agregar = True):
   if agregar:
     database["fav"].append(pokemon)
@@ -38,7 +46,7 @@ def lista_pokemon(pokemon, agregar = True):
   
 
 
-database = {"fav":list() , "lista": list() }
+database = {"fav":[], "listas": [] }
 
 
 
