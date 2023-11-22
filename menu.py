@@ -62,7 +62,8 @@ def eliminar_lista():
     contador = 1
     nombres_listas = [[],[]]
     for nombre in database.keys():
-        if nombre == "Favoritos":continue
+        if nombre == "Favoritos":
+            continue
         nombres_listas[0].append(contador)
         nombres_listas[1].append(nombre)
         print(f"{contador}.- {nombre}")#TAL VEZ ACA FRANCO
