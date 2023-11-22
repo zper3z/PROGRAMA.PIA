@@ -1,48 +1,69 @@
-import matplotlib.pyplot as plt
-import PRUEBA
 import requests
+import matplotlib.pyplot as plt
 
-def graficar(pokemon):
-    info = PRUEBA.buscar(pokemon)
-
-    # Gráfica de barras
-    labels = ['HP', 'Ataque', 'Defensa', 'Ataque Especial', 'Defensa Especial', 'Velocidad']
-    stats = [stat['base_stat'] for stat in PRUEBA.buscar_estadisticas(pokemon)]
+def obtener_datos_pokemon(nombre_pokemon):
     
-    plt.bar(labels, stats, color=['red', 'blue', 'green', 'yellow', 'purple', 'orange'])
-    plt.title(f'Estadísticas de {pokemon}')
-    plt.xlabel('Estadísticas')
-    plt.ylabel('Valor')
-    plt.show()
+    url = f'https://pokeapi.co/api/v2/pokemon/{nombre_pokemon.lower()}'
+    respuesta = requests.get(url)
 
-    plt.pie(stats, labels=labels, autopct='%1.1f%%', startangle=140)
-    plt.title(f'Estadísticas de {pokemon}')
-    plt.show()
-
-    if ciclo_si_no("Quieres comparar las estadísticas con otros Pokémon?"):
-        comparar_estadisticas(pokemon)
-
-def comparar_estadisticas(pokemon):
-    comparar_pokemon = input("Ingresa el nombre o número del Pokémon para comparar: ")
-    
-    stats_pokemon = [stat['base_stat'] for stat in PRUEBA.buscar_estadisticas(pokemon)]
-    stats_otro_pokemon = [stat['base_stat'] for stat in PRUEBA.buscar_estadisticas(comparar_pokemon)]
-
-    labels = ['HP', 'Ataque', 'Defensa', 'Ataque Especial', 'Defensa Especial', 'Velocidad']
-
-    plt.bar(labels, stats_pokemon, color='blue', label=pokemon)
-    plt.bar(labels, stats_otro_pokemon, color='red', label=comparar_pokemon, alpha=0.5)
-    plt.title(f'Comparación de Estadísticas entre {pokemon} y {comparar_pokemon}')
-    plt.xlabel('Estadísticas')
-    plt.ylabel('Valor')
-    plt.legend()
-    plt.show()
-
-def ciclo_si_no(texto):
-    opcion = input(f"{texto} (Si/No): ")
-    if opcion.lower() == "si":
-        return True
-    elif opcion.lower() == "no":
-        return False
+    if respuesta.status_code == 200:
+        datos_pokemon = respuesta.json()
+        return datos_pokemon
     else:
-        return ciclo_si_no(texto)
+        print(f"No se pudo obtener la información del Pokémon {nombre_pokemon}")
+        return None
+
+def graficar_barras(nombre_pokemon, caracteristicas):
+    
+    plt.bar(caracteristicas.keys(), caracteristicas.values())
+    plt.title(f'Características de {nombre_pokemon}')
+    plt.xlabel('Característica')
+    plt.ylabel('Valor')
+    plt.show()
+
+def graficar_pastel(nombre_pokemon, caracteristicas):
+    
+    plt.pie(caracteristicas.values(), labels=caracteristicas.keys(), autopct='%1.1f%%')
+    plt.title(f'Distribución de Características de {nombre_pokemon}')
+    plt.show()
+
+def graficar_lineal(nombre_pokemon, estadisticas):
+    
+    plt.plot(estadisticas.keys(), estadisticas.values(), marker='o')
+    plt.title(f'Estadísticas de {nombre_pokemon}')
+    plt.xlabel('Estadística')
+    plt.ylabel('Valor')
+    plt.show()
+
+def main():
+    nombres_pokemon = input("Ingrese los nombres de los Pokémon separados por comas: ")
+    nombres_pokemon = nombres_pokemon.split(',')
+
+    for nombre_pokemon in nombres_pokemon:
+        nombre_pokemon = nombre_pokemon.strip()
+        datos_pokemon = obtener_datos_pokemon(nombre_pokemon)
+
+        if datos_pokemon:
+    
+            caracteristicas = {
+                'HP': datos_pokemon['stats'][0]['base_stat'],
+                'Ataque': datos_pokemon['stats'][1]['base_stat'],
+                'Defensa': datos_pokemon['stats'][2]['base_stat'],
+                'Velocidad': datos_pokemon['stats'][5]['base_stat']
+            }
+
+            
+            graficar_barras(nombre_pokemon, caracteristicas)
+            graficar_pastel(nombre_pokemon, caracteristicas)
+
+            
+            estadisticas = {
+                'Ataque': datos_pokemon['stats'][1]['base_stat'],
+                'Defensa': datos_pokemon['stats'][2]['base_stat'],
+                'Velocidad': datos_pokemon['stats'][5]['base_stat']
+            }
+
+            graficar_lineal(nombre_pokemon, estadisticas)
+
+if __name__ == "__main__":
+    main()
