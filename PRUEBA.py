@@ -66,10 +66,10 @@ def excel(info, lista):
     print(f"La información de tu lista {lista} se ha guardado en {lista}.xlsx")
 
 def ciclo_si_no(texto):
-    opcion = input(f"{texto} (Si/No): ")
-    if opcion == "Si":
+    opcion = input(f"{texto} (Si/No): ").lower()
+    if opcion == "si":
         return True
-    elif opcion == "No":
+    elif opcion == "no":
         return False
     else:
         return ciclo_si_no(texto)
