@@ -37,7 +37,6 @@ def buscar(nombre_pokemon):
         nombre = input("Ingresa el nombre o número del Pokémon: ")
         return buscar(nombre)
 
-
 def imprimir(info):
 	nombre = info[0]
 	tipos = info[1]
@@ -47,7 +46,6 @@ def imprimir(info):
 	print("Tipos:", ", ".join(tipos))
 	print("Habilidades:", ", ".join(habilidades))
 	print("Habilidad Oculta:", habilidad_oc)
-
 
 def excel(info, lista):
     libro_trabajo = Workbook()
@@ -66,5 +64,24 @@ def excel(info, lista):
     libro_trabajo.save(f"{lista}.xlsx")
     libro_trabajo.close()
     print(f"La información de tu lista {lista} se ha guardado en {lista}.xlsx")
+
+def ciclo_si_no(texto):
+    opcion = input(f"{texto} (Si/No): ")
+    if opcion == "Si":
+        return True
+    elif opcion == "No":
+        return False
+    else:
+        return ciclo_si_no(texto)
+    
+def validador_opciones(opcion_final):
+    opcion_final = int(opcion_final)
+    opcion = input(f"Selecciona su opción (1-{opcion_final}): ")
+    for num in range(1,opcion_final+1,1):
+        if opcion == str(num):break
+    else:
+        print(f"Opción inválida")
+        return validador_opciones(opcion_final)
+    return int(opcion)
 
 
