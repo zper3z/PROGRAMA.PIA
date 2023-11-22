@@ -20,7 +20,7 @@ def menu_principal():
 
 def opcion_1():
     pokemon = input("Ingresa el nombre o número del Pokémon: ")
-    imprimir(buscar(pokemon))
+    PRUEBA.imprimir(PRUEBA.buscar(pokemon))
     if ciclo_si_no("Quisieras graficar las estadisticas de este pokemon?"):
         graficar(pokemon) ####################################################### falta esta funcion
     while not(ciclo_si_no("Quisieras volver al menu principal?")):
@@ -91,20 +91,22 @@ def menu_lista(nombre_lista):
     elif opcion == 3:
         eliminar_pokemon(nombre_lista)
     elif opcion == 4:
-        excel(database[nombre_lista],nombre_lista)
+        PRUEBA.excel(database[nombre_lista],nombre_lista)
     elif opcion == 5:
         menu_principal()
-  
+
+
 def agregar_pokemon(nombre_lista):
     nombre_lista[0]
-    pokemon = buscar(input("Ingresa el nombre o número del Pokémon: "))
+    pokemon = PRUEBA.buscar(input("Ingresa el nombre o número del Pokémon: "))
     nombre = pokemon[0]
     database[nombre_lista].append(nombre)
     menu_lista(nombre_lista)
 
+
 def eliminar_pokemon(nombre_lista):
     ver_lista(nombre_lista, False)
-    pokemon = buscar(input("Ingresa el nombre o número del Pokémon: "))
+    pokemon = PRUEBA.buscar(input("Ingresa el nombre o número del Pokémon: "))
     nombre = pokemon[0]
     database[nombre_lista].remove(nombre)
     menu_lista(nombre_lista)
