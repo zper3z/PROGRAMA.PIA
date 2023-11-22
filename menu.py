@@ -22,7 +22,7 @@ def opcion_1():
     pokemon = input("Ingresa el nombre o número del Pokémon: ")
     imprimir(buscar(pokemon))
     if ciclo_si_no("Quisieras graficar las estadisticas de este pokemon?"):
-        graficar(pokemon) #######################################################
+        graficar(pokemon) ####################################################### falta esta funcion
     while not(ciclo_si_no("Quisieras volver al menu principal?")):
         print("Oh perdon..esperaré un rato más")
     menu_principal()
