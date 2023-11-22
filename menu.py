@@ -67,8 +67,8 @@ def eliminar_lista():
         nombres_listas[1].append(nombre)
         print(f"{contador}.- {nombre}")#TAL VEZ ACA FRANCO
         contador += 1
-    opcion = PRUEBA.validador_opciones(contador)
-    del database[nombres_listas][1][opcion-1]
+    opcion = PRUEBA.validador_opciones(contador-1)
+    del database[(nombres_listas[1][opcion-1])]
     opcion_3()
 
 def opcion_4():
