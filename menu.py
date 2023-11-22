@@ -104,6 +104,9 @@ def agregar_pokemon(nombre_lista):
     menu_lista(nombre_lista)
 
 def eliminar_pokemon(nombre_lista):
+    if len(database[nombre_lista]) == 0:
+        print(f"No puedes eliminar ni un pokemon")
+        menu_lista(nombre_lista)
     ver_lista(nombre_lista, False)
     pokemon = PRUEBA.buscar(input("Ingresa el nombre o número del Pokémon: "))
     nombre = pokemon[0]
