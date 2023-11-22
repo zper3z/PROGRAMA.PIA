@@ -1,6 +1,7 @@
 import requests
 from openpyxl import Workbook
 	
+	
 def buscar(nombre_pokemon):
     if nombre_pokemon != "":
         url = f"https://pokeapi.co/api/v2/pokemon/{nombre_pokemon}"
@@ -27,12 +28,10 @@ def buscar(nombre_pokemon):
                 
 
             return informacion
-            #
         else:
             print(f"No se encontró ningún Pokémon con el nombre o número '{nombre_pokemon}'.")
             nombre = input("Ingresa el nombre o número del Pokémon: ")
             return buscar(nombre)
-    #
     else:
         print(f"Favor de ingresar los datos pedidos")
         nombre = input("Ingresa el nombre o número del Pokémon: ")
@@ -50,9 +49,10 @@ def imprimir(info):
 	print("Habilidad Oculta:", habilidad_oc)
 
 
-def excel(info, lista = "Favoritos"):
+def excel(info, lista):
     libro_trabajo = Workbook()
     hoja = libro_trabajo.active
+    print(f"info: {info}")
 	
     hoja['A1'] = "Nombre"
     hoja['B1'] = "Tipos"
@@ -60,8 +60,11 @@ def excel(info, lista = "Favoritos"):
     hoja['D1'] = "Habilidad Oculta"
 
     for pokemon in info:
-        hoja.append([pokemon[0], ", ".join(pokemon[1]), ", ".join(pokemon[2]),pokemon[3]])
+        datos = buscar(pokemon)
+        print(f"pokemon: {pokemon}")
+        hoja.append([datos[0], ", ".join(datos[1]), ", ".join(datos[2]),datos[3]])
     libro_trabajo.save(f"{lista}.xlsx")
     libro_trabajo.close()
     print(f"La información de tu lista {lista} se ha guardado en {lista}.xlsx")
+
 
