@@ -1,6 +1,6 @@
 import requests
 from openpyxl import Workbook
-import PRUEBA.py
+import PRUEBA
 
 def menu_principal():
     print("--- MENU POKEMON---")
