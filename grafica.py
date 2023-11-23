@@ -22,14 +22,17 @@ def obtener_datos_pokemon(nombre_pokemon):
         return None
 
 def graficar_barras(nombre_pokemon, caracteristicas):
-    colores = ['blue'] * len(caracteristicas.items())
+    colores = ['green'] * len(caracteristicas.items())
     stat_maximo = max(caracteristicas.values())
-    if stat_maximo == caracteristicas['HP']:colores[0]='red'
-    if stat_maximo == caracteristicas['Ataque']:colores[1]='red'
-    if stat_maximo == caracteristicas['Defensa']:colores[2]='red'
-    if stat_maximo == caracteristicas['Ataque Especial']:colores[3]='red'
-    if stat_maximo == caracteristicas['Defensa Especial']:colores[4]='red'
-    if stat_maximo == caracteristicas['Velocidad']:colores[5]='red'
+    stat_minimo= min(caracteristicas.values())
+    index = 0
+    for stat in caracteristicas.keys():
+        if stat_maximo == caracteristicas[stat]: colores[index]='red'
+        index += 1
+    index = 0
+    for stat in caracteristicas.keys():
+        if stat_minimo == caracteristicas[stat]: colores[index]='blue'
+        index += 1
     plt.bar(caracteristicas.keys(), caracteristicas.values(), color = colores)
     plt.title(f'Características de {nombre_pokemon}')
     plt.xlabel('Característica')
