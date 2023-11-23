@@ -55,4 +55,3 @@ def graficar_estadisticas_pokemon(nombre_pokemon,caracteristicas):
     graficar_barras(nombre_pokemon, caracteristicas)
     graficar_pastel(nombre_pokemon, caracteristicas)
     graficar_lineal(nombre_pokemon, caracteristicas)
-
