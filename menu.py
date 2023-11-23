@@ -181,22 +181,17 @@ def menu_grafica(pokemon):
 def actualizar_database():
     global database
     listas = funciones.importar_listas()
-    database = {}
-    for nombre, ruta in listas.items():
-        info = funciones.consultar_lista(ruta)
-        database[nombre] = []
-        for pokemon in info:
-            pokemon = pokemon[0]
-            database[nombre].append(pokemon)
-    del database[nombre][0]
+    if not database:
+        database = {}
+        for nombre, ruta in listas.items():
+            info = funciones.consultar_lista(ruta)
+            database[nombre] = []
+            for pokemon in info:
+                pokemon = pokemon[0]
+                database[nombre].append(pokemon)
 
 
 database = {} 
-
-if __name__ == "__main__":
-    funciones.crear_carpetaListas()
-    actualizar_database()
-    menu_principal()
 
 if __name__ == "__main__":
     funciones.crear_carpetaListas()
