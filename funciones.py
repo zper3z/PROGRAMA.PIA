@@ -118,6 +118,3 @@ def validador_opciones(opcion_final):
         print(f"Opción inválida")
         return validador_opciones(opcion_final)
     return int(opcion)
-
-
-
