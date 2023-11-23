@@ -72,10 +72,15 @@ def mostrar_listas():
         print(f"No hay lista que escoger")
         opcion_3()
 
-def agregar_lista():
-    nombre = input("Ingrese el nombre de la nueva lista: ")
-    database.update({nombre:[]})
-    opcion_3()
+def agregar_lista(favoritos = False):
+    if not favoritos:
+        nombre = input("Ingrese el nombre de la nueva lista: ")
+        database.update({nombre:[]})
+        opcion_3()
+    else:
+        database.update({"Favoritos":[]})
+        menu_principal()
+    
 
 def eliminar_lista(): 
     contador = 0
@@ -196,4 +201,5 @@ database = {}
 if __name__ == "__main__":
     funciones.crear_carpetaListas()
     actualizar_database()
+    agregar_lista(favoritos=True)
     menu_principal()
