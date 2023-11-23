@@ -41,17 +41,17 @@ def opcion_3():
     print("---LISTAS---")
     contador = 1
     print(f"{contador} ESCOGER LISTA")
-    print(f"{contador + 1} AGREGAR/ELIMINAR LISTAS")
-    print(f"{contador + 2} GRAFICAR")
+    print(f"{contador + 1} AGREGAR LISTA")
+    print(f"{contador + 2} ELIMINAR LISTAS")
     print(f"{contador + 3} REGRESAR")
 
     opcion = funciones.validador_opciones(contador + 3)
     if opcion == contador:
         mostrar_listas()
     elif opcion == contador + 1:
-        submenu_modificar_listas()
+        agregar_lista()
     elif opcion == contador + 2:
-        menu_grafica()
+        eliminar_lista()
     elif opcion == contador + 3:
         menu_principal()
 
@@ -67,23 +67,9 @@ def mostrar_listas():
         print(f"{contador}.- {nombre}")
     if(len(nombres_listas[1])) != 0:   
         opcion = funciones.validador_opciones(contador)
-        modificar_lista(nombres_listas[1][opcion-1])
+        menu_lista(nombres_listas[1][opcion-1])
     else:
         print(f"No hay lista que escoger")
-        opcion_3()
-
-def submenu_modificar_listas():
-    print("---MODIFICAR LISTAS---")
-    print("1. AGREGAR LISTA")
-    print("2. ELIMINAR LISTA")
-    print("3. VOLVER")
-    
-    opcion = funciones.validador_opciones(3)
-    if opcion == 1:
-        agregar_lista()
-    elif opcion == 2:
-        eliminar_lista()
-    elif opcion == 3:
         opcion_3()
 
 def agregar_lista():
@@ -117,7 +103,7 @@ def opcion_4():
 
 def menu_lista(nombre_lista):
     print(f"---{nombre_lista}---")
-    print(f"1. MODIFICAR LISTA") 
+    print(f"1. EDITAR LISTA") 
     print(f"2. VER POKEMONS")  
     print(f"3. CREAR/ACTUALIZAR EXCEL")
     print(f"4. VOLVER")
@@ -133,7 +119,7 @@ def menu_lista(nombre_lista):
         menu_principal()
 
 def modificar_lista(nombre_lista):
-    print("---MODIFICAR LISTA---")
+    print(f"---MODIFICAR LISTA {nombre_lista}---")
     print("1. AGREGAR POKEMON")
     print("2. ELIMINAR POKEMON")
     print("3. VOLVER")
@@ -152,16 +138,20 @@ def agregar_pokemon(nombre_lista):
     menu_lista(nombre_lista)
 
 def eliminar_pokemon(nombre_lista):
-    contador = 0
-    nombres_listas = [[],[]]
-    for pokemon in database[nombre_lista]:
-        contador += 1
-        nombres_listas[0].append(contador)
-        nombres_listas[1].append(pokemon)
-        print(f"{contador}.- {pokemon}")
-        
-    opcion = funciones.validador_opciones(contador)
-    del database[nombre_lista][opcion-1]
+    if not database[nombre_lista]:
+        contador = 0
+        nombres_listas = [[],[]]
+        for pokemon in database[nombre_lista]:
+            contador += 1
+            nombres_listas[0].append(contador)
+            nombres_listas[1].append(pokemon)
+            print(f"{contador}.- {pokemon}")
+            
+        opcion = funciones.validador_opciones(contador)
+        del database[nombre_lista][opcion-1]
+        modificar_lista(nombre_lista)
+    else:
+        print("Ups, parece que aún no has capturado ningún Pokémon.")
     modificar_lista(nombre_lista)
 
 def ver_lista(nombre_lista):
@@ -178,7 +168,7 @@ def menu_grafica(pokemon):
     print(f"1. GRAFICA DE BARRAS (CON MAYOR ESTADISTICA)")
     print(f"2. GRAFICA DE PASTEL (CON PORCENTAJES)")
     print(f"3. GRAFICA LINEAL (CON PROMEDIO)")
-    print(f"4. GRAFICAR TODAS")
+    print(f"4. CONTINUAR")
     opcion = funciones.validador_opciones(4)
     if opcion == 1:
         grafica.graficar_barras(pokemon,grafica.obtener_datos_pokemon(pokemon))
@@ -186,9 +176,8 @@ def menu_grafica(pokemon):
         grafica.graficar_pastel(pokemon,grafica.obtener_datos_pokemon(pokemon))
     if opcion == 3:
         grafica.graficar_lineal(pokemon,grafica.obtener_datos_pokemon(pokemon))
-    if opcion == 4:
-        grafica.graficar_estadisticas_pokemon(pokemon,grafica.obtener_datos_pokemon(pokemon))
-
+    if opcion != 4:menu_grafica(pokemon)
+        
 def actualizar_database():
     global database
     listas = funciones.importar_listas()
@@ -208,5 +197,3 @@ if __name__ == "__main__":
     funciones.crear_carpetaListas()
     actualizar_database()
     menu_principal()
-
-
