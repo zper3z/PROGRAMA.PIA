@@ -197,3 +197,8 @@ if __name__ == "__main__":
     funciones.crear_carpetaListas()
     actualizar_database()
     menu_principal()
+
+if __name__ == "__main__":
+    funciones.crear_carpetaListas()
+    actualizar_database()
+    menu_principal()
